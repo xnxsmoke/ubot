@@ -1,0 +1,15 @@
+name: Ping Railway Bot
+
+on:
+  schedule:
+    # Ogni giorno alle 7:00 AM ora italiana (Europe/Rome)
+    - cron: '0 5 * * *'  # UTC 5:00 AM = 7:00 AM CET/CEST (attento a cambio ora legale)
+  workflow_dispatch:  # ti permette anche di farlo partire manualmente
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Railway bot
+        run: |
+          curl -fsSL https://ubot-production-d04e.up.railway.app/ || echo "Ping fallito"
