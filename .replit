@@ -1,0 +1,25 @@
+modules = ["python-3.12"]
+run = "$ git clone https://github.com/itsmat/TelegramUserBot.git or download $ python -m pip install -r requirements.txt $ python generatorestring.py | Follow what it tells you Edit main.py $ python main.py"
+
+[nix]
+channel = "stable-24_05"
+packages = ["freetype", "lcms2", "libimagequant", "libjpeg", "libtiff", "libwebp", "libxcrypt", "openjpeg", "postgresql", "tcl", "tk", "zlib"]
+
+[deployment]
+run = ["sh", "-c", "$ git clone https://github.com/itsmat/TelegramUserBot.git or download $ python -m pip install -r requirements.txt $ python generatorestring.py | Follow what it tells you Edit main.py $ python main.py"]
+
+[workflows]
+runButton = "Run Telegram Bot"
+
+[[workflows.workflow]]
+name = "Run Telegram Bot"
+author = 43576111
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
+
+[[ports]]
+localPort = 8080
+externalPort = 80
