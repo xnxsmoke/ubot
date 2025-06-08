@@ -2,14 +2,12 @@ import os
 import time
 import logging
 from pyrogram import Client
-from pyrogram.errors import AuthKeyUnregistered, SessionPasswordNeeded, FloodWait
+from pyrogram.errors import AuthKeyUnregistered, FloodWait
 from keep_alive import keep_alive
 
-# Logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Crea il client
 app = Client(
     os.getenv('SESSION_NAME', 'userbot'),
     session_string=os.getenv('SESSION_STRING'),
@@ -35,5 +33,5 @@ def run_bot():
             time.sleep(10)
 
 if __name__ == "__main__":
-    keep_alive(app)
+    keep_alive(app)  # passa il client al keep_alive per inviare messaggi
     run_bot()
