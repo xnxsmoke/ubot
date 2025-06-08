@@ -1,0 +1,20 @@
+name: Ping Railway Bot
+
+on:
+  schedule:
+    # Ogni 30 minuti
+    - cron: '*/30 * * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controlla orario e ping
+        run: |
+          HOUR=$(TZ=Europe/Rome date +'%H')
+          if [ $HOUR -ge 7 ] && [ $HOUR -lt 24 ]; then
+            curl -X GET https://ubot-production-d04e.up.railway.app/
+            echo "Ping inviato"
+          else
+            echo "Fuori orario, niente ping"
+          fi
