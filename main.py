@@ -35,6 +35,5 @@ def run_bot():
             time.sleep(10)
 
 if __name__ == "__main__":
-    keep_alive()
+    keep_alive(app)
     run_bot()
-    
