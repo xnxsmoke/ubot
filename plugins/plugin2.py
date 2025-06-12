@@ -483,6 +483,30 @@ async def fdasd(client, message):
     pasted = f"**✅ Caricato con successo su pasty**\n\n• [Link]({p_link})\n\n• [Link Raw]({p_raw})"
     await pablo.edit(pasted, disable_web_page_preview=True)
 
+from pyrogram.raw.functions.account import UpdateProfile
 
+auto_status_enabled = False
 
+@Client.on_message(filters.user("self") & filters.command("autostatus", "."))
+async def toggle_autostatus(client, message):
+    global auto_status_enabled
 
+    if auto_status_enabled:
+        auto_status_enabled = False
+        await client.send(UpdateProfile(last_name=""))
+        await message.edit("🔴 AutoStatus disattivato. Cognome ripristinato.")
+    else:
+        auto_status_enabled = True
+        await message.edit("🟢 AutoStatus attivato. Cognome aggiornato in base allo stato...")
+
+        while auto_status_enabled:
+            me = await client.get_me()
+            full_user = await client.get_users(me.id)
+
+            if full_user.status and full_user.status != "offline":
+                new_last_name = "🟢 Online"
+            else:
+                new_last_name = "🔴 Offline"
+
+            await client.send(UpdateProfile(last_name=new_last_name))
+            await asyncio.sleep(15)
